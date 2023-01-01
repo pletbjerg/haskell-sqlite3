@@ -1,0 +1,60 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1671928623,
+        "narHash": "sha256-Dc1RmNI7njJCGfGL/Kfg4pALVac768oVaJ40rDmK+pU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b490035d4043c5c4a2b1afaf257acb84f874332f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1671658455,
+        "narHash": "sha256-TjAtaE6agyVpCLXioPumV0oHUfCfQ+XuqEC2EdlGc2s=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "5d6fa6fdeb97ce5763f8bc2fa7b4185c3562c43a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "sqlite3": "sqlite3"
+      }
+    },
+    "sqlite3": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1671929448,
+        "narHash": "sha256-iqiPeSfR1cdMPytzrSwPDZ/hfdZdkgUIczUosFDjxDU=",
+        "owner": "pletbjerg",
+        "repo": "sqlite3",
+        "rev": "49a4d8b06f5e22d2448f9f2181f81aa020b05c2f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pletbjerg",
+        "repo": "sqlite3",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
