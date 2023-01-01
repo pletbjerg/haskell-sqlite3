@@ -1,7 +1,3 @@
--- `cabal repl` doesn't know that we want to include the sqlite3 library
--- :set -L/nix/store/1fnlcb3pqzz6l6iah1fz1an7q5hsf6zb-sqlite3/lib 
-:set -lsqlite3
-
 -- Redefine `:r` s.t. it'll run `cabal build` and hence the preprocessors.
 -- :def! r (\_ -> return ":!cabal build -v0 --ghc-options=-fno-code\n::reload")
 -- Actually, we call `cabal repl`, and immediately close `cabal repl` since
