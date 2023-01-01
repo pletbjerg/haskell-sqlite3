@@ -72,6 +72,13 @@ library
     build-tool-depends:
         hsc2hs:hsc2hs
 
+    extra-libraries:
+        sqlite3
+
+    pkgconfig-depends:
+        sqlite3
+
+
 test-suite haskell-sqlite3-test
     -- Base language which the package is written in.
     default-language: Haskell2010
