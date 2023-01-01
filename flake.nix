@@ -36,5 +36,9 @@
     devShells.${system} = { 
         default = project.envFunc { withHoogle = true; };
     };
+
+    # For `nix fmt` to use `nixpkgs-fmt` from
+    # [here](https://github.com/nix-community/nixpkgs-fmt)
+    formatter.${system} = pkgs.nixpkgs-fmt;
   };
 }
