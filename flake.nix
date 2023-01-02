@@ -16,7 +16,7 @@
       project = pkgs.haskellPackages.developPackage
         {
           root = ./.;
-          name = "haskell-sqlite3";
+          name = "haskell-sqlite3-bindings";
           modifier = pkgs.haskell.lib.compose.overrideCabal (drv:
             {
               # Some awkwardness from abnormal default behavior from
