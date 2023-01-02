@@ -19,6 +19,7 @@ import Foreign.C.Types
 import Foreign.Storable (Storable)
 import Foreign.C.String (CString)
 import Data.Bits (Ior (Ior))
+import Data.Void (Void)
 
 -- * Result Codes
 -- $resultCodesDoc
@@ -362,7 +363,7 @@ foreign import ccall unsafe "sqlite3_prepare_v2" c_sqlite3_prepare_v2 ::
 foreign import ccall unsafe "sqlite3_bind_blob" c_sqlite3_bind_blob ::
     Sqlite3Stmt ->
     CInt ->
-    CString ->
+    Ptr Void ->
     CInt ->
     Sqlite3DestructorType ->
     CInt
@@ -373,7 +374,7 @@ foreign import ccall unsafe "sqlite3_bind_blob" c_sqlite3_bind_blob ::
 foreign import ccall safe "sqlite3_bind_blob" c_sqlite3_bind_blob_safe ::
     Sqlite3Stmt ->
     CInt ->
-    CString ->
+    Ptr Void ->
     CInt ->
     Sqlite3DestructorType ->
     CInt
@@ -451,7 +452,7 @@ foreign import ccall unsafe "sqlite3_step" c_sqlite3_step ::
 foreign import ccall unsafe "sqlite3_column_blob" c_sqlite3_column_blob ::
     Sqlite3Stmt ->
     CInt ->
-    Ptr CString
+    IO (Ptr Void)
 
 -- | @double sqlite3_column_double(sqlite3_stmt*, int iCol);@
 foreign import ccall unsafe "sqlite3_column_double" c_sqlite3_column_double ::
@@ -561,7 +562,7 @@ foreign import ccall unsafe "sqlite3_error_offset" c_sqlite3_error_offset ::
 -- $constantsDefiningSpecialDestructorBehaviorDoc
 -- <file:///nix/store/8vjwnkfabz6x4rknypgmzw48q210krlr-sqlite3-doc-3.40.00/share/doc/c3ref/c_static.html>
 
-type Sqlite3DestructorType = FunPtr (CString -> IO ())
+type Sqlite3DestructorType = FunPtr (Ptr Void -> IO ())
 
 #{enum Sqlite3DestructorType,
  (Ptr.castPtrToFunPtr . Ptr.wordPtrToPtr . WordPtr),
