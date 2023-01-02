@@ -503,7 +503,6 @@ foreign import ccall unsafe "sqlite3_finalize" c_sqlite3_finalize ::
     Sqlite3Stmt ->
     CInt
 
-
 -- * Closing A Database Connection
 --
 -- $closingADatabaseConnectionDoc
@@ -570,6 +569,21 @@ type Sqlite3DestructorType = FunPtr (CString -> IO ())
  SQLITE_TRANSIENT}
 {- See Note [Hsc And Whitespace For Haddock]
 -}
+
+
+-- * Obtain Aggregate Function Context
+
+-- | Wrapper for a pointer to an @sqlite3_context@. 
+-- <file:///nix/store/8vjwnkfabz6x4rknypgmzw48q210krlr-sqlite3-doc-3.40.00/share/doc/c3ref/context.html>
+newtype Sqlite3Context = Sqlite3Context (Ptr Sqlite3Context)
+  deriving stock (Show)
+  deriving newtype (Eq, Ord, Storable)
+
+-- | @void *sqlite3_aggregate_context(sqlite3_context*, int nBytes);@
+-- <file:///nix/store/8vjwnkfabz6x4rknypgmzw48q210krlr-sqlite3-doc-3.40.00/share/doc/c3ref/aggregate_context.html>
+foreign import ccall unsafe "sqlite3_aggregate_context" c_sqlite3_aggregate_context ::
+    Sqlite3Context ->
+    IO CInt
 
 
 -- Note [Hsc And Whitespace For Haddock]
