@@ -11,11 +11,14 @@ module Database.SQLite3.Ffi where
 
 import Foreign.Ptr (Ptr, FunPtr, WordPtr (WordPtr))
 import qualified Foreign.Ptr as Ptr
-import Foreign.C.Types (CInt (CInt), CULong (CULong), CDouble(CDouble), CUChar (CUChar))
+import Foreign.C.Types
+    ( CInt (CInt)
+    , CDouble(CDouble)
+    , CUChar
+    )
 import Foreign.Storable (Storable)
 import Foreign.C.String (CString)
-import qualified Foreign.Marshal.Utils as Utils
-import qualified Data.Bits as Bits
+import Data.Bits (Ior (Ior))
 
 -- * Result Codes
 -- $resultCodesDoc
@@ -66,7 +69,7 @@ newtype Sqlite3 = Sqlite3 (Ptr Sqlite3)
 foreign import ccall unsafe "sqlite3_open_v2" c_sqlite3_open_v2 :: 
     CString ->
     Ptr Sqlite3 ->
-    CInt ->
+    SqliteOpenFlag ->
     IO CInt
 
 -- ** Flags For File Open Operations
@@ -74,10 +77,25 @@ foreign import ccall unsafe "sqlite3_open_v2" c_sqlite3_open_v2 ::
 -- $flagsForFileOpenOperationsDoc
 -- <file:///nix/store/8vjwnkfabz6x4rknypgmzw48q210krlr-sqlite3-doc-3.40.00/share/doc/c3ref/c_open_autoproxy.html>
 
-#{enum CInt,,
+-- | 'SqliteOpenFlag' is a newtype wrapper around
+-- <file:///nix/store/8vjwnkfabz6x4rknypgmzw48q210krlr-sqlite3-doc-3.40.00/share/doc/c3ref/c_open_autoproxy.html>
+--
+-- Merging flags is done using the 'Semigroup' instance e.g.,
+--
+-- @
+--  'sqliteOpenReadonly' '<>' 'sqliteOpenWal'
+-- @
+--
+-- does the bitwise OR to include both the @SQLITE_OPEN_READONLY@ and
+-- @SQLITE_OPEN_WAL@ flags.
+newtype SqliteOpenFlag = SqliteOpenFlag CInt
+  deriving newtype (Eq, Ord, Storable)
+  deriving (Semigroup, Monoid) via (Ior CInt)
+
+#{enum SqliteOpenFlag, SqliteOpenFlag,
  SQLITE_OPEN_READONLY,
  SQLITE_OPEN_READWRITE,
- SQLITE_OPEN_CREATE, 
+ SQLITE_OPEN_CREATE,
  SQLITE_OPEN_DELETEONCLOSE,
  SQLITE_OPEN_EXCLUSIVE,
  SQLITE_OPEN_AUTOPROXY,
@@ -87,7 +105,7 @@ foreign import ccall unsafe "sqlite3_open_v2" c_sqlite3_open_v2 ::
  SQLITE_OPEN_TEMP_DB,
  SQLITE_OPEN_TRANSIENT_DB,
  SQLITE_OPEN_MAIN_JOURNAL,
- SQLITE_OPEN_TEMP_JOURNAL, 
+ SQLITE_OPEN_TEMP_JOURNAL,
  SQLITE_OPEN_SUBJOURNAL,
  SQLITE_OPEN_SUPER_JOURNAL,
  SQLITE_OPEN_NOMUTEX,
