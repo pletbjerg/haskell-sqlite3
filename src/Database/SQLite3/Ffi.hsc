@@ -5,6 +5,9 @@
 --
 -- For an introduction to the interface, refer to the documentation here:
 -- <file:///nix/store/8vjwnkfabz6x4rknypgmzw48q210krlr-sqlite3-doc-3.40.00/share/doc/cintro.html>
+--
+-- Exhaustive lists of the SQLite interface can be found here:
+-- <file:///nix/store/8vjwnkfabz6x4rknypgmzw48q210krlr-sqlite3-doc-3.40.00/share/doc/c3ref/intro.html>
 module Database.SQLite3.Ffi where
 
 #include<sqlite3.h>
@@ -584,7 +587,7 @@ newtype Sqlite3Context = Sqlite3Context (Ptr Sqlite3Context)
 -- <file:///nix/store/8vjwnkfabz6x4rknypgmzw48q210krlr-sqlite3-doc-3.40.00/share/doc/c3ref/aggregate_context.html>
 foreign import ccall unsafe "sqlite3_aggregate_context" c_sqlite3_aggregate_context ::
     Sqlite3Context ->
-    CInt ->
+    CInt
     IO (Ptr Void)
 
 
