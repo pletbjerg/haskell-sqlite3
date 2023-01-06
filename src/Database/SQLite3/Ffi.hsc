@@ -572,6 +572,8 @@ type Sqlite3DestructorType = FunPtr (Ptr Void -> IO ())
  SQLITE_STATIC,
  SQLITE_TRANSIENT}
 {- See Note [Hsc And Whitespace For Haddock]
+
+
 -}
 
 
