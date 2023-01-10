@@ -16,6 +16,7 @@ import Foreign.Ptr (Ptr, FunPtr, WordPtr (WordPtr))
 import qualified Foreign.Ptr as Ptr
 import Foreign.C.Types
     ( CInt (CInt)
+    , CLong (CLong)
     , CDouble(CDouble)
     , CUChar
     )
@@ -398,7 +399,13 @@ foreign import ccall unsafe "sqlite3_bind_int" c_sqlite3_bind_int ::
     CInt ->
     CInt
 
--- int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);
+-- | @int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);@
+-- TODO: Verify the ranges / sizes of these types
+foreign import ccall unsafe "sqlite3_bind_int64" c_sqlite3_bind_int64 ::
+    Sqlite3Stmt ->
+    CInt ->
+    CLong ->
+    CInt
 
 -- | @int sqlite3_bind_null(sqlite3_stmt*, int);@
 foreign import ccall unsafe "sqlite3_bind_null" c_sqlite3_bind_null ::
