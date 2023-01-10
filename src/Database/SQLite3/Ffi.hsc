@@ -476,7 +476,11 @@ foreign import ccall unsafe "sqlite3_column_int" c_sqlite3_column_int ::
     CInt ->
     CInt
 
--- sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol);
+-- | @sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol);@
+foreign import ccall unsafe "sqlite3_column_int64" c_sqlite3_column_int64 ::
+    Sqlite3Stmt ->
+    CInt ->
+    CLong
 
 -- | @const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);@
 foreign import ccall unsafe "sqlite3_column_text" c_sqlite3_column_text ::
