@@ -470,7 +470,7 @@ foreign import ccall unsafe "sqlite3_column_double" c_sqlite3_column_double ::
     CInt ->
     CDouble
 
--- |@int sqlite3_column_int(sqlite3_stmt*, int iCol);@
+-- | @int sqlite3_column_int(sqlite3_stmt*, int iCol);@
 foreign import ccall unsafe "sqlite3_column_int" c_sqlite3_column_int ::
     Sqlite3Stmt ->
     CInt ->
