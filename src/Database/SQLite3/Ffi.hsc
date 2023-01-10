@@ -370,7 +370,7 @@ foreign import ccall unsafe "sqlite3_bind_blob" c_sqlite3_bind_blob ::
     Ptr Void ->
     CInt ->
     Sqlite3DestructorType ->
-    CInt
+    IO CInt
 
 -- | @int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));@
 -- N.B. this is a @safe@ variant of 'c_sqlite3_bind_blob' which may call back
@@ -381,7 +381,7 @@ foreign import ccall safe "sqlite3_bind_blob" c_sqlite3_bind_blob_safe ::
     Ptr Void ->
     CInt ->
     Sqlite3DestructorType ->
-    CInt
+    IO CInt
 
 -- int sqlite3_bind_blob64(sqlite3_stmt*, int, const void*, sqlite3_uint64, void(*)(void*));
 
@@ -390,14 +390,14 @@ foreign import ccall unsafe "sqlite3_bind_double" c_sqlite3_bind_double ::
     Sqlite3Stmt ->
     CInt ->
     CDouble ->
-    CInt
+    IO CInt
 
 -- | @int sqlite3_bind_int(sqlite3_stmt*, int, int);@
 foreign import ccall unsafe "sqlite3_bind_int" c_sqlite3_bind_int ::
     Sqlite3Stmt ->
     CInt ->
     CInt ->
-    CInt
+    IO CInt
 
 -- | @int sqlite3_bind_int64(sqlite3_stmt*, int, sqlite3_int64);@
 -- TODO: Verify the ranges / sizes of these types
@@ -405,13 +405,13 @@ foreign import ccall unsafe "sqlite3_bind_int64" c_sqlite3_bind_int64 ::
     Sqlite3Stmt ->
     CInt ->
     CLong ->
-    CInt
+    IO CInt
 
 -- | @int sqlite3_bind_null(sqlite3_stmt*, int);@
 foreign import ccall unsafe "sqlite3_bind_null" c_sqlite3_bind_null ::
     Sqlite3Stmt ->
     CInt ->
-    CInt
+    IO CInt
 
 -- | @int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));@
 foreign import ccall unsafe "sqlite3_bind_text" c_sqlite3_bind_text ::
@@ -420,7 +420,7 @@ foreign import ccall unsafe "sqlite3_bind_text" c_sqlite3_bind_text ::
     CString ->
     CInt ->
     Sqlite3DestructorType ->
-    CInt
+    IO CInt
 
 -- | @int sqlite3_bind_text(sqlite3_stmt*,int,const char*,int,void(*)(void*));@
 -- N.B. this is a @safe@ variant of 'c_sqlite3_bind_text' which may call back
@@ -431,7 +431,7 @@ foreign import ccall safe "sqlite3_bind_text" c_sqlite3_bind_text_safe ::
     CString ->
     CInt ->
     Sqlite3DestructorType ->
-    CInt
+    IO CInt
 
 -- int sqlite3_bind_text16(sqlite3_stmt*, int, const void*, int, void(*)(void*));
 
@@ -451,7 +451,7 @@ foreign import ccall safe "sqlite3_bind_text" c_sqlite3_bind_text_safe ::
 -- | <file:///nix/store/8vjwnkfabz6x4rknypgmzw48q210krlr-sqlite3-doc-3.40.00/share/doc/c3ref/step.html>
 foreign import ccall unsafe "sqlite3_step" c_sqlite3_step ::
     Sqlite3Stmt ->
-    CInt
+    IO CInt
 
 -- * Result Values From A Query
 --
@@ -468,25 +468,25 @@ foreign import ccall unsafe "sqlite3_column_blob" c_sqlite3_column_blob ::
 foreign import ccall unsafe "sqlite3_column_double" c_sqlite3_column_double ::
     Sqlite3Stmt ->
     CInt ->
-    CDouble
+    IO CDouble
 
 -- | @int sqlite3_column_int(sqlite3_stmt*, int iCol);@
 foreign import ccall unsafe "sqlite3_column_int" c_sqlite3_column_int ::
     Sqlite3Stmt ->
     CInt ->
-    CInt
+    IO CInt
 
 -- | @sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol);@
 foreign import ccall unsafe "sqlite3_column_int64" c_sqlite3_column_int64 ::
     Sqlite3Stmt ->
     CInt ->
-    CLong
+    IO CLong
 
 -- | @const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);@
 foreign import ccall unsafe "sqlite3_column_text" c_sqlite3_column_text ::
     Sqlite3Stmt ->
     CInt ->
-    Ptr CUChar
+    IO (Ptr CUChar)
 
 -- const void *sqlite3_column_text16(sqlite3_stmt*, int iCol);
 
@@ -506,7 +506,7 @@ foreign import ccall unsafe "sqlite3_column_text" c_sqlite3_column_text ::
 -- | int sqlite3_reset(sqlite3_stmt *pStmt);
 foreign import ccall unsafe "sqlite3_reset" c_sqlite3_reset ::
     Sqlite3Stmt ->
-    CInt
+    IO CInt
 
 -- * Destroy A Prepared Statement Object
 --
@@ -516,7 +516,7 @@ foreign import ccall unsafe "sqlite3_reset" c_sqlite3_reset ::
 -- | @int sqlite3_finalize(sqlite3_stmt *pStmt);@
 foreign import ccall unsafe "sqlite3_finalize" c_sqlite3_finalize ::
     Sqlite3Stmt ->
-    CInt
+    IO CInt
 
 -- * Closing A Database Connection
 --
@@ -526,12 +526,12 @@ foreign import ccall unsafe "sqlite3_finalize" c_sqlite3_finalize ::
 -- | @int sqlite3_close(sqlite3*);@
 foreign import ccall unsafe "sqlite3_close" c_sqlite3_close ::
     Sqlite3 ->
-    CInt
+    IO CInt
 
 -- | @int sqlite3_close_v2(sqlite3*);@
 foreign import ccall unsafe "sqlite3_close_v2" c_sqlite3_close_v2 ::
     Sqlite3 ->
-    CInt
+    IO CInt
 
 -- * Error Codes And Messages
 --
